@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trus.reggie.common.R;
 import com.trus.reggie.entity.Employee;
-import com.trus.reggie.mapper.EmployeeMapper;
 import com.trus.reggie.service.EmployeeService;
-import com.trus.reggie.service.impl.EmployeeServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -28,9 +26,9 @@ public class EmployeeController {
 
     /**
      * 员工登录
-     * @param request
-     * @param employee
-     * @return
+     * @param request 请求
+     * @param employee 员工实体
+     * @return 员工
      */
     @PostMapping("/login")
     public R<Employee> login(HttpServletRequest request, @RequestBody Employee employee){
@@ -44,7 +42,7 @@ public class EmployeeController {
          * 6、 登录成功，将员Tid存入Session并返回登录成功结果
          */
 
-        /**
+        /*
          * 1、将页面捉交的密码password进行md5加密处理
          */
         String password = employee.getPassword();
@@ -94,16 +92,18 @@ public class EmployeeController {
 
     @PostMapping
     public R<String> save(HttpServletRequest request, @RequestBody Employee employee){
+
         String psw = DigestUtils.md5DigestAsHex("123456".getBytes(StandardCharsets.UTF_8));
         employee.setPassword(psw);
-
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-
-        Long user = (Long) request.getSession().getAttribute("employee");
-
-        employee.setCreateUser(user);
-        employee.setUpdateUser(user);
+//
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
+//
+//        Long user = (Long) request.getSession().getAttribute("employee");
+//
+//        employee.setCreateUser(user);
+//        employee.setUpdateUser(user);
+//
         log.info("添加的信息： {}", employee.toString());
         employeeService.save(employee);
 
@@ -138,13 +138,15 @@ public class EmployeeController {
 
     @PutMapping
     public R<String> update(HttpServletRequest request, @RequestBody Employee employee){
-        employee.setUpdateUser((Long) request.getSession().getAttribute("employee"));
-        employee.setUpdateTime(LocalDateTime.now());
+
+//        employee.setUpdateUser((Long) request.getSession().getAttribute("employee"));
+//        employee.setUpdateTime(LocalDateTime.now());
+//
         employeeService.updateById(employee);
         return R.success("用户状态修改成功");
 
     }
-    
+
     @GetMapping("/{id}")
     public R<Employee> getOne(@PathVariable String id){
 //        Long id = employee.getId();

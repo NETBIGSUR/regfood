@@ -19,7 +19,8 @@ mybatis-plus:
     db-config:
       # 主键生成策略
       id-type: ASSIGN_ID
-
+      # 开启自动填充功能
+      auto-fill: true
 
 reggie:
   path: C:\img\
