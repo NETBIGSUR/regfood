@@ -94,8 +94,6 @@ public class EmployeeController {
 
     @PostMapping
     public R<String> save(HttpServletRequest request, @RequestBody Employee employee){
-
-
         String psw = DigestUtils.md5DigestAsHex("123456".getBytes(StandardCharsets.UTF_8));
         employee.setPassword(psw);
 
@@ -140,22 +138,13 @@ public class EmployeeController {
 
     @PutMapping
     public R<String> update(HttpServletRequest request, @RequestBody Employee employee){
-
-
-
         employee.setUpdateUser((Long) request.getSession().getAttribute("employee"));
-
         employee.setUpdateTime(LocalDateTime.now());
-
-
         employeeService.updateById(employee);
-
-
         return R.success("用户状态修改成功");
 
     }
-
-
+    
     @GetMapping("/{id}")
     public R<Employee> getOne(@PathVariable String id){
 //        Long id = employee.getId();
@@ -164,7 +153,10 @@ public class EmployeeController {
         LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.eq(Employee::getId,id);
         Employee one = employeeService.getOne(queryWrapper);
-        return R.success(one);
+        if( one != null) {
+            return R.success(one);
+        }
+        return R.error("未找到相关信息");
     }
 
 //    @PutMapping
@@ -175,10 +167,4 @@ public class EmployeeController {
         Employee one = employeeService.getOne(queryWrapper);
         return R.success(one);
     }
-
-
-
-
-
-
 }
