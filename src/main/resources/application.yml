@@ -2,21 +2,22 @@ server:
   port: 8080
 spring:
   application:
-    name: reggie_take_out
+    name: reggie_take
   datasource:
-    druid:
+#    druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/reggie?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: root
+
 mybatis-plus:
   configuration:
-    #ÔÚÓ³ÉäÊµÌå»òÕßÊôĞÔÊ±£¬½«Êı¾İ¿âÖĞ±íÃûºÍ×Ö¶ÎÃûÖĞµÄÏÂ»®ÏßÈ¥µô£¬°´ÕÕÍÕ·åÃüÃû·¨Ó³Éä
+    #åœ¨æ˜ å°„å®ä½“æˆ–è€…å±æ€§æ—¶ï¼Œå°†æ•°æ®åº“ä¸­è¡¨åå’Œå­—æ®µåä¸­çš„ä¸‹åˆ’çº¿å»æ‰ï¼ŒæŒ‰ç…§é©¼å³°å‘½åæ³•æ˜ å°„
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
-      # Ö÷¼üÉú³É²ßÂÔ
+      # ä¸»é”®ç”Ÿæˆç­–ç•¥
       id-type: ASSIGN_ID
 
 
